@@ -40,7 +40,8 @@ while True:
 
     
     try:
-        with open(file_name_query,'r') as file:
+        path = '/Users/mollerup/Desktop/server/networks_FTP_project/TCP/server/'
+        with open(path + file_name_query,'r') as file:
             file_as_string = file.read()
 
             response = FILE_FOUND_CODE + file_as_string
