@@ -40,7 +40,7 @@ while True:
 
     
     try:
-        path = '/Users/mollerup/Desktop/server/networks_FTP_project/TCP/server/'
+        path = '/Users/mollerup/Desktop/github repos/networks_FTP_project/TCP/server/'
         with open(path + file_name_query,'r') as file:
             file_as_string = file.read()
 
