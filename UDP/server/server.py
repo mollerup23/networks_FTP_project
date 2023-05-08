@@ -63,7 +63,6 @@ while True:
             udp_msg, clientAddress = udp_welcome_sock.recvfrom(BUFF_SIZE)
 
             file_bytes = bytes(file_as_string,"utf-8")
-            file_hash = hashlib.md5(file_bytes).digest()
 
             while file_bytes:
 
@@ -74,10 +73,16 @@ while True:
                 #message = bytearray(status_bytes)
                 #message = message.append(file_hash)
 
+
+                num_bytes_sent = udp_welcome_sock.sendto(file_bytes, clientAddress)
+                logging.info("SENT " + str(num_bytes_sent) + " BYTES VIA UDP TO CLIENT")
+
+                file_hash = hashlib.md5(file_bytes[:num_bytes_sent-1]).digest()
+
                 message = status_bytes + file_hash
 
                 tcp_connection.sendall(message)
-                udp_welcome_sock.sendto(file_bytes, clientAddress)
+                logging.info("SENT STATUS AND HASH TO CLIENT")
 
                 response = tcp_connection.recv(BUFF_SIZE)
                 response_head = response[:MSG_SIZE].decode("utf-8")
